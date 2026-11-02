@@ -40,7 +40,7 @@ io.on('connection',socket=>{
     const x=Number(state.x),y=Number(state.y),z=Number(state.z),rot=Number(state.rot);
     if(![x,y,z,rot].every(Number.isFinite))return;
     // Prototype bounds and speed checks; future stages use server-authoritative movement.
-    if(Math.abs(x)>60||Math.abs(z)>60||y<-.1||y>6)return;
+    if(Math.abs(x)>60||Math.abs(z)>60||y<-.1||y>8)return;
     const dx=x-p.x,dz=z-p.z;
     if(Math.hypot(dx,dz)>2.4)return;
     Object.assign(p,{x,y,z,rot});

@@ -1,34 +1,17 @@
-# IDIOT ESCAPE — Prototype 01
+# IDIOT ESCAPE — Rebuilt 3D prison
 
-A browser-based 3D multiplayer prison prototype for PC and mobile.
+A browser multiplayer prototype using Three.js, Express and Socket.IO. Includes a rebuilt connected prison with two levels of cells, stairs, a canteen, security room, courtyard, guard towers and three marked escape routes (not yet functional).
 
 ## Run locally
-
 1. Install Node.js 20 or newer.
-2. In this folder run `npm install`.
-3. Run `npm start`.
-4. Open http://localhost:3000.
+2. Run `npm install` then `npm start` from this folder.
+3. Open http://localhost:3000 in your browser.
 
-## GitHub + Render
-
-1. Create a GitHub repository and upload `server.js`, `index.html`, `package.json`, `render.yaml` (and this README).
-2. In Render, select **New > Web Service**, connect the repository.
-3. Choose Node runtime, build command `npm install`, start command `npm start`.
-4. Deploy and open the resulting HTTPS URL. Share that URL with friends; create a room and send its 6-digit code.
-
-Render free services may sleep while idle. Room state is kept in server memory and disappears on restart. Use a single server instance; multi-instance support requires a shared adapter/store.
+## Deploy on Render
+Create a GitHub repository with these files at its root. In Render choose New > Web Service, connect the repository, set Build Command to `npm install` and Start Command to `npm start`. The app listens on `process.env.PORT`.
 
 ## Controls
+Desktop: WASD move, mouse look (click game to lock pointer), Shift sprint, Space jump, left mouse attack, T chat, Esc release pointer. Mobile: left virtual stick, drag right half to look, JUMP and HIT buttons.
 
-PC: WASD move, mouse look (click game to lock pointer), Shift run, Space jump, left click punch, T chat, Esc unlock pointer.
-Mobile: left virtual joystick, drag right side to look, JUMP, HIT, CHAT.
-
-## Stage 1 scope
-
-Implemented: prison environment, chibi characters, multiplayer rooms, synced players, chat, basic punch damage, temporary knockdown effect, respawn, PC/mobile controls, three exit landmarks.
-
-Not yet implemented: guard AI, capture and rescue, inventory, keys, win/lose escape rules, full physics ragdoll, persistent progression. Knockdown currently uses a visual tilt, not joint-based ragdoll.
-
-The Three.js ES module loads from a CDN, so internet access is required in the browser.
-
-This is an early prototype; movement is not fully server-authoritative and should not be treated as cheat-proof.
+## Current limitations
+Multiplayer rooms and chat, basic player attacks and hit reactions are present. Guard AI, arrest/carry, items, ragdoll joints, functional exits, authoritative physics and game win conditions are not yet implemented. The scene uses procedural geometry and stylized materials, not external authored 3D assets. Requires internet to load Three.js from CDN. Not browser-playtested in this environment.

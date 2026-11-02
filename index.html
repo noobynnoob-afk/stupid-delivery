@@ -1,36 +1,82 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>IDIOT ESCAPE</title><style>
 *{box-sizing:border-box}body{margin:0;background:#090b0d;color:#e8e9e9;font-family:Arial,sans-serif;overflow:hidden;touch-action:none}button,input{font:inherit;border-radius:0}button{cursor:pointer;border:1px solid #687079;background:#222831;color:#fff;padding:11px 14px;font-weight:700}button:active{background:#a63a39}input{background:#11161c;color:#fff;border:1px solid #69717b;padding:12px;min-width:0}#game{position:fixed;inset:0}#menu{position:fixed;inset:0;background:linear-gradient(125deg,#070a0de8,#1b1e25e9);z-index:20;display:flex;justify-content:center;align-items:center;padding:15px}#menuBox{width:min(440px,100%);border-top:5px solid #ad3837;background:#14191eea;padding:28px;box-shadow:0 10px 45px #000a}h1{font-size:clamp(35px,8vw,54px);margin:0 0 6px;letter-spacing:2px}#menuBox p{font-size:12px;color:#a4adb6;margin:0 0 24px}#menuBox input{width:100%;margin:7px 0}#menuBox button{width:100%;margin-top:8px}#menuBox .red{background:#8e302f;border-color:#bd4a48}#menuError{color:#ff7676;min-height:18px;font-size:13px;margin-top:10px}#hud{position:fixed;inset:0;pointer-events:none;display:none}#top{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.panel{background:#111820d9;border-left:3px solid #ae3535;padding:9px 12px;font-size:12px}#roomLabel{font-weight:900}#members{max-width:260px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}#chatArea{position:absolute;left:12px;bottom:16px;width:min(330px,60vw);pointer-events:auto}#messages{max-height:130px;overflow-y:auto;background:#0d1218a8;font-size:12px;padding:7px;min-height:30px;word-break:break-word}#chatRow{display:flex}#chatInput{width:100%;font-size:13px;padding:9px}#chatSend{padding:8px}#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:20px;color:#ffffff9a}#hint{position:absolute;top:64px;left:12px;font-size:11px;color:#e1e1e1;background:#0d1218a8;padding:7px}#hp{position:absolute;right:12px;top:12px;background:#111820d9;border-bottom:3px solid #a33b3b;padding:10px;font-size:13px}#mobile{display:none;position:absolute;inset:0;pointer-events:none}#stickBase{position:absolute;bottom:72px;left:24px;width:130px;height:130px;border:2px solid #ffffff65;background:#ffffff12;border-radius:50%;pointer-events:auto;touch-action:none}#stickKnob{position:absolute;width:55px;height:55px;left:36px;top:36px;border-radius:50%;background:#d4dbe066;border:2px solid #fff8}#mobileButtons{position:absolute;right:22px;bottom:82px;display:flex;gap:12px;align-items:end;pointer-events:auto}#mobileButtons button{width:65px;height:65px;border:1px solid #fff8;background:#1e293bdc;font-size:12px}#mobileButtons #attack{background:#8b2d30e8;width:75px;height:75px}#chatToggle{position:absolute;right:12px;top:64px;pointer-events:auto}#toast{position:absolute;left:50%;top:25%;transform:translateX(-50%);background:#0d1218e8;border:1px solid #a43d3d;padding:10px;display:none;white-space:nowrap;font-size:13px}@media(pointer:coarse){#mobile{display:block}#chatArea{bottom:5px;left:8px;width:min(300px,65vw)}#hint{display:none}#crosshair{display:none}#chatArea:not(.show) #chatRow{display:none}#chatArea:not(.show) #messages{display:none}}@media(max-width:500px){#members{max-width:125px}#top{right:85px}#hp{top:56px}}
-</style></head><body><div id="game"></div><div id="menu"><div id="menuBox"><h1>IDIOT<br>ESCAPE</h1><p>MULTIPLAYER PRISON ESCAPE · PROTOTYPE 01</p><input id="name" maxlength="16" placeholder="플레이어 이름" value="PRISONER"><button class="red" id="create">방 만들기</button><input id="code" inputmode="numeric" maxlength="6" placeholder="6자리 방 코드"><button id="join">방 참가</button><div id="menuError"></div></div></div><div id="hud"><div id="top"><div class="panel" id="roomLabel">ROOM ------</div><div class="panel" id="members">PLAYERS</div><div class="panel">ALERT LEVEL 01</div></div><div id="hp">HP 100</div><div id="hint">WASD 이동 · 마우스 시점 · SHIFT 달리기 · SPACE 점프 · 클릭 공격 · T 채팅 · ESC 커서 해제</div><div id="crosshair">+</div><div id="toast"></div><div id="chatArea"><div id="messages"></div><div id="chatRow"><input id="chatInput" maxlength="140" placeholder="채팅 입력 (T)"><button id="chatSend">전송</button></div></div><button id="chatToggle">CHAT</button><div id="mobile"><div id="stickBase"><div id="stickKnob"></div></div><div id="mobileButtons"><button id="jump">JUMP</button><button id="attack">HIT</button></div></div></div>
+</style></head><body><div id="game"></div><div id="menu"><div id="menuBox"><h1>IDIOT<br>ESCAPE</h1><p>MULTIPLAYER PRISON ESCAPE · CELL BLOCK / REBUILT EDITION</p><input id="name" maxlength="16" placeholder="플레이어 이름" value="PRISONER"><button class="red" id="create">방 만들기</button><input id="code" inputmode="numeric" maxlength="6" placeholder="6자리 방 코드"><button id="join">방 참가</button><div id="menuError"></div></div></div><div id="hud"><div id="top"><div class="panel" id="roomLabel">ROOM ------</div><div class="panel" id="members">PLAYERS</div><div class="panel">ALERT LEVEL 01</div></div><div id="hp">HP 100</div><div id="hint">WASD 이동 · 마우스 시점 · SHIFT 달리기 · SPACE 점프 · 클릭 공격 · T 채팅 · ESC 커서 해제</div><div id="crosshair">+</div><div id="toast"></div><div id="chatArea"><div id="messages"></div><div id="chatRow"><input id="chatInput" maxlength="140" placeholder="채팅 입력 (T)"><button id="chatSend">전송</button></div></div><button id="chatToggle">CHAT</button><div id="mobile"><div id="stickBase"><div id="stickKnob"></div></div><div id="mobileButtons"><button id="jump">JUMP</button><button id="attack">HIT</button></div></div></div>
 <script src="/socket.io/socket.io.js"></script><script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
 const $=id=>document.getElementById(id),socket=io(),mobile=matchMedia('(pointer:coarse)').matches;
-const scene=new THREE.Scene();scene.background=new THREE.Color(0x171e27);scene.fog=new THREE.Fog(0x171e27,22,78);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x253747);scene.fog=new THREE.Fog(0x253747,55,125);
 const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,.08,110);const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;$('game').appendChild(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0x91add4,0x293039,2.1));const sun=new THREE.DirectionalLight(0xf1e4ca,2.5);sun.position.set(12,25,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-35;sun.shadow.camera.right=35;sun.shadow.camera.top=35;sun.shadow.camera.bottom=-35;scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xc4d8e5,0x38424a,2.0));const sun=new THREE.DirectionalLight(0xf1e4ca,2.5);sun.position.set(-20,34,-18);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-48;sun.shadow.camera.right=48;sun.shadow.camera.top=48;sun.shadow.camera.bottom=-48;scene.add(sun);
 const mat=(c)=>new THREE.MeshStandardMaterial({color:c,roughness:.82});const concrete=mat(0x60666a),floorMat=mat(0x444a50),bars=mat(0x1b232c),doorMat=mat(0x7a3334),metal=mat(0x89949b),grass=mat(0x374c40);
-const solid=[];function box(x,y,z,w,h,d,m,collision=true){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;scene.add(mesh);if(collision)solid.push({x,z,w,d});return mesh;}
-box(0,-.3,0,78,.6,78,floorMat,false);box(0,.01,-21,78,.05,36,grass,false);
-// Prison boundary and interior, with three distinct exit landmarks for future missions.
-box(-24,2,0,1,4,48,concrete);box(24,2,0,1,4,48,concrete);box(0,2,-24,48,4,1,concrete);box(-14,2,24,20,4,1,concrete);box(14,2,24,20,4,1,concrete);
-box(0,2,18,1,4,11,concrete);box(0,2,1,1,4,12,concrete);
-for(let side of [-1,1])for(let i=0;i<4;i++){
- const x=side*7.5,z=14-i*7;box(x,2,z-3.1,13,4,.6,concrete);box(side*14,2,z,0.6,4,6.5,concrete);
- for(let b=0;b<6;b++)box(side*(1.3+b*.65),1.6,z+3.1,.09,3.2,.1,bars);
- box(side*9,.35,z-1.4,3,.7,1.6,metal);box(side*9,.85,z-1.9,3,.3,.6,concrete);
+const solid=[];const props=[];
+function box(x,y,z,w,h,d,m,collision=true){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);mesh.position.set(x,y,z);mesh.castShadow=h>.15;mesh.receiveShadow=true;scene.add(mesh);if(collision)solid.push({x,z,w,d,y0:y-h/2,y1:y+h/2});return mesh;}
+const stone=mat(0x838b90),lightStone=mat(0xb0b3ae),wall=mat(0x606e77),trim=mat(0x25313b),rust=mat(0x925448),yellow=mat(0xe6b85b),wood=mat(0x8e765f),blue=mat(0x426376),glass=new THREE.MeshStandardMaterial({color:0x85bdcf,metalness:.35,roughness:.18,transparent:true,opacity:.52});
+function sign(label,x,y,z,w=3,color='#d9e4eb',rotation=0){const canvas=document.createElement('canvas');canvas.width=512;canvas.height=128;const c=canvas.getContext('2d');c.fillStyle='#17212b';c.fillRect(0,0,512,128);c.strokeStyle='#ad5550';c.lineWidth=9;c.strokeRect(4,4,504,120);c.fillStyle=color;c.font='bold 43px Arial';c.textAlign='center';c.fillText(label,256,79);const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,w/4),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(canvas),side:THREE.DoubleSide}));mesh.position.set(x,y,z);mesh.rotation.y=rotation;scene.add(mesh);}
+function lamp(x,y,z,bright=1){const bulb=new THREE.Mesh(new THREE.BoxGeometry(.9,.1,.32),new THREE.MeshBasicMaterial({color:0xffe3b1}));bulb.position.set(x,y,z);scene.add(bulb);const light=new THREE.PointLight(0xffd3a0,bright,12,2);light.position.set(x,y-.2,z);scene.add(light);}
+// Continuous ground and perimeter; north is courtyard, south is cell block.
+box(0,-.32,0,78,.64,88,stone,false);box(0,-.012,-23,72,.03,39,grass,false);box(0,-.005,16,49,.03,38,floorMat,false);
+for(const z of [-43,43])box(0,3.3,z,76,6.6,.8,wall);for(const x of [-38,38])box(x,3.3,0,.8,6.6,86,wall);
+// Central two-level cellblock 48x36, courtyard opens through north gate.
+for(const x of [-24,24])box(x,3.2,17,.75,6.4,38,wall);
+box(0,3.2,36,49,6.4,.7,wall);box(-15,3.2,-2,18,6.4,.7,wall);box(15,3.2,-2,18,6.4,.7,wall);
+// Vertical supports and overhead beams.
+for(const x of [-22,-11,11,22])for(const z of [0,11,23,34])box(x,3.1,z,.55,6.2,.55,lightStone);
+for(const z of [0,11,23,34])box(0,6.1,z,47,.4,.55,trim,false);
+// 2nd floor continuous galleries along both sides; open center.
+for(const x of [-17.5,17.5]){box(x,3.25,17,12,.3,35,stone,false);box(x>0?11.7:-11.7,3.9,17,.12,1.3,34,trim,false);for(let z=1;z<34;z+=2)box(x>0?11.7:-11.7,3.7,z,.1,1,.12,metal,false);}
+// Cells on two floors, front bars and individual entrances.
+for(const level of [0,1])for(const side of [-1,1])for(let i=0;i<5;i++){
+ const z=2+i*6.2,front=side*11.65,back=side*23.4,cy=level*3.2;
+ box(side*17.5,cy+1.55,z-2.9,11.5,3.1,.22,wall);
+ box(side*17.5,cy+1.55,z+2.9,11.5,3.1,.22,wall);
+ for(let k=0;k<12;k++){const xx=front+side*k*.22;/* reinforced entrance frame */}
+ for(let k=0;k<7;k++){const zz=z-2.6+k*.86;if(k===3||k===4)continue;box(front,cy+1.6,zz,.12,2.9,.09,bars,false);}
+ box(front,cy+3.08,z,.18,.12,5.7,trim,false);box(front,cy+.08,z,.18,.16,5.7,trim,false);
+ box(side*20.7,cy+.43,z+1.3,2.3,.32,.9,metal,false);box(side*20.7,cy+.9,z+1.65,2.3,.6,.18,wood,false);
+ box(side*22,cy+.7,z-1.6,.8,1.4,.8,lightStone,false);
+ sign('CELL '+(level*10+i+1),front-side*.12,cy+2.7,z,1.4,'#cbd6d9',side===1?-Math.PI/2:Math.PI/2);
 }
-box(-13,2,-10,10,4,.8,concrete);box(-18,2,-15,.8,4,10,concrete);box(-18,2,-5,.8,4,10,concrete);box(-13,4,-10,10,.3,10,concrete,false);
-for(let x=-22;x<=22;x+=4)for(let z=-22;z<=22;z+=4){if((x+z)%8===0){const light=new THREE.PointLight(0xffd7a3,.5,7);light.position.set(x,3.8,z);scene.add(light);}}
-box(-4,1.4,-23.3,3,2.8,.2,doorMat,false);box(0,1.4,23.7,3,2.8,.2,doorMat,false);box(23.3,1.4,-6,.2,2.8,3,doorMat,false);
-for(let i=0;i<8;i++)box(-19+i*5,.6,-18,1.8,1.2,1.8,concrete);
+// Stairs: wide steps on each side, traversable by stair height sampling.
+const stairs=[];
+for(const side of [-1,1])for(let i=0;i<12;i++){
+ const z=33-i*.52,h=(i+1)*.265;
+ box(side*8.5,h/2,z,4.6,h,.53,stone,false);stairs.push({x:side*8.5,z,w:4.6,d:.53,h});
+}
+// Catwalk bridges at southern and northern ends.
+box(0,3.25,33.8,23,.28,2.1,stone,false);box(0,3.25,.4,23,.28,2.1,stone,false);
+// Lighting, decals and marked paths.
+for(const z of [4,14,24,33]){lamp(0,5.7,z,2);box(0,.018,z,1,.012,2.1,yellow,false);}
+sign('CELL BLOCK A',0,5.1,35.5,6);sign('NORTH YARD',0,4.8,-1.5,4.8);
+// Canteen on west wing, actual open doorway in dividing wall.
+box(-29,2.6,19,.6,5.2,32,wall);box(-30,2.6,35,17,5.2,.6,wall);box(-30,2.6,3,17,5.2,.6,wall);
+for(let z=8;z<=30;z+=7){box(-31.5,.7,z,7,.24,1.9,wood,false);for(let x of [-34,-29]){box(x,.35,z-1.3,1.3,.4,.5,blue,false);box(x,.35,z+1.3,1.3,.4,.5,blue,false);}}
+sign('CANTEEN',-29,4.4,4.2,3.4);lamp(-32,4.8,17,1.5);
+// Security office east, glazing and consoles.
+box(29,2.6,20,.6,5.2,30,wall);box(31,2.6,35,14,5.2,.6,wall);box(31,2.6,5,14,5.2,.6,wall);
+for(let z=10;z<30;z+=5){box(28.65,2.2,z,.06,1.7,3.2,glass,false);box(32,.85,z,2,.9,1.3,trim,false);box(31.4,1.5,z,1.1,.7,.12,blue,false);}
+sign('SECURITY',29,4.4,6.1,3.4);lamp(32,4.8,17,1.5);
+// Yard: basketball court, benches, fences and watchtowers.
+box(0,.025,-23,17,.05,22,mat(0x647780),false);const white=mat(0xe0dfd0);
+for(const x of [-8,8])box(x,.055,-23,.1,.012,22,white,false);for(const z of [-34,-12])box(0,.055,z,16,.012,.1,white,false);
+for(const z of [-32,-14]){box(0,2.1,z,.16,4.2,.16,trim,false);box(0,4.1,z,2.1,.13,1.3,white,false);}
+for(const x of [-35,35])for(const z of [-39,-8]){box(x,4.6,z,5,.4,5,trim,false);for(const dx of [-2,2])for(const dz of [-2,2])box(x+dx,2.2,z+dz,.3,4.4,.3,metal,false);box(x,5.4,z,5.7,.35,5.7,wall,false);lamp(x,4.3,z,1.3);}
+for(const x of [-27,27]){box(x,.42,-21,5,.7,1.4,wood,false);box(x,.55,-21.7,5,.9,.3,trim,false);}
+for(let z=-40;z<-4;z+=1.3){box(-36,.9,z,.06,1.8,.07,metal,false);box(36,.9,z,.06,1.8,.07,metal,false);}
+// Three distinct escape landmarks, currently locked (future missions).
+box(0,1.7,-42.5,5.8,3.4,.25,doorMat,false);sign('MAIN GATE',0,4.2,-42.1,4);
+box(-37.5,.65,-16,.24,1.3,2.6,trim,false);sign('VENT',-37.1,2.2,-16,2.4,'#e3c18a',Math.PI/2);
+box(37.4,.35,-32,.2,.7,3.1,trim,false);sign('TUNNEL',37,2.3,-32,2.4,'#e3c18a',-Math.PI/2);
+// Painted directional markings.
+for(const [x,z] of [[0,0],[0,-7],[0,-13]])box(x,.028,z,1.1,.018,1.6,yellow,false);
 const players=new Map();let me=null,active=false,velY=0,yaw=0,pitch=.2,keys={},stick={x:0,y:0},last=performance.now(),lastSend=0,lastAttack=0;
 const colors=[0xe28c35,0xd16c30,0xf1a64a,0xb86b3b,0xd8a04d,0xc97839,0xe3a15c,0xbb7b4b];
 function character(data){const root=new THREE.Group();scene.add(root);const orange=mat(colors[data.color%8]||colors[0]),skin=mat(0xf3c49d),dark=mat(0x22252a),white=mat(0xeee8df);
  function part(geo,m,x,y,z,parent=root){const o=new THREE.Mesh(geo,m);o.position.set(x,y,z);o.castShadow=true;parent.add(o);return o;}
- part(new THREE.BoxGeometry(.75,.7,.42),orange,0,.91,0);part(new THREE.BoxGeometry(.85,.2,.45),orange,0,.58,0);
- const head=part(new THREE.SphereGeometry(.53,16,12),skin,0,1.65,0);head.scale.set(1.1,1.04,.95);
- for(const x of [-.2,.2]){part(new THREE.SphereGeometry(.065,8,8),dark,x,1.72,.49);part(new THREE.SphereGeometry(.025,8,8),white,x-.015,1.74,.54);}
- const arms=[],legs=[];for(const x of [-.53,.53])arms.push(part(new THREE.BoxGeometry(.23,.57,.28),orange,x,.97,0));for(const x of [-.22,.22])legs.push(part(new THREE.BoxGeometry(.28,.55,.3),orange,x,.28,0));
- const label=document.createElement('canvas');label.width=256;label.height=64;const ctx=label.getContext('2d');ctx.fillStyle='#13171de8';ctx.fillRect(0,0,256,64);ctx.fillStyle='#fff';ctx.font='bold 24px Arial';ctx.textAlign='center';ctx.fillText(data.name||'PRISONER',128,40);const texture=new THREE.CanvasTexture(label);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,transparent:true,depthTest:false}));sprite.position.y=2.65;sprite.scale.set(2.3,.58,1);root.add(sprite);
+ part(new THREE.CapsuleGeometry(.39,.34,5,10),orange,0,.95,0);part(new THREE.BoxGeometry(.85,.2,.45),orange,0,.58,0);
+ const head=part(new THREE.SphereGeometry(.55,24,16),skin,0,1.68,0);head.scale.set(1.08,1.02,.98);part(new THREE.SphereGeometry(.56,20,10),dark,0,1.91,-.09).scale.set(1,.39,.9);
+ for(const x of [-.2,.2]){part(new THREE.SphereGeometry(.079,12,10),dark,x,1.72,.49);part(new THREE.SphereGeometry(.026,8,8),white,x-.015,1.75,.55);part(new THREE.BoxGeometry(.14,.04,.045),dark,x,1.87,.48);}part(new THREE.BoxGeometry(.17,.025,.03),dark,0,1.46,.52);
+ const arms=[],legs=[];for(const x of [-.53,.53])arms.push(part(new THREE.CapsuleGeometry(.14,.38,4,8),orange,x,.98,0));for(const x of [-.22,.22])legs.push(part(new THREE.CapsuleGeometry(.14,.33,4,8),orange,x,.32,0));
+ for(const x of [-.22,.22])part(new THREE.BoxGeometry(.32,.16,.48),dark,x,.085,.13);part(new THREE.BoxGeometry(.33,.08,.05),white,0,1.14,.39);const label=document.createElement('canvas');label.width=256;label.height=64;const ctx=label.getContext('2d');ctx.fillStyle='#13171de8';ctx.fillRect(0,0,256,64);ctx.fillStyle='#fff';ctx.font='bold 24px Arial';ctx.textAlign='center';ctx.fillText(data.name||'PRISONER',128,40);const texture=new THREE.CanvasTexture(label);const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:texture,transparent:true,depthTest:false}));sprite.position.y=2.65;sprite.scale.set(2.3,.58,1);root.add(sprite);
  root.position.set(data.x||0,data.y||0,data.z||0);root.rotation.y=data.rot||0;return {root,arms,legs,hp:100,downUntil:0,target:{x:root.position.x,y:root.position.y,z:root.position.z,rot:root.rotation.y},walk:0};}
 function addPlayer(p){if(players.has(p.id))return;players.set(p.id,character(p));updateMembers();}
 function updateMembers(){$('members').textContent=`PLAYERS ${players.size}/8`;}
@@ -53,17 +99,17 @@ function attack(){if(!active||Date.now()-lastAttack<450)return;lastAttack=Date.n
 $('attack').addEventListener('pointerdown',e=>{e.preventDefault();attack();});$('jump').addEventListener('pointerdown',e=>{e.preventDefault();keys.Space=true;setTimeout(()=>keys.Space=false,150);});
 const base=$('stickBase'),knob=$('stickKnob');let stickPointer=null;base.addEventListener('pointerdown',e=>{stickPointer=e.pointerId;base.setPointerCapture(e.pointerId);moveStick(e);});base.addEventListener('pointermove',e=>{if(e.pointerId===stickPointer)moveStick(e);});function moveStick(e){const r=base.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),scale=Math.min(1,52/(Math.hypot(dx,dy)||1));stick.x=dx*scale/52;stick.y=dy*scale/52;knob.style.transform=`translate(${dx*scale}px,${dy*scale}px)`;}function resetStick(){stickPointer=null;stick.x=stick.y=0;knob.style.transform='translate(0,0)';}base.addEventListener('pointerup',resetStick);base.addEventListener('pointercancel',resetStick);
 let lookPointer=null,lookX=0,lookY=0;renderer.domElement.addEventListener('pointerdown',e=>{if(mobile&&e.clientX>innerWidth*.36){lookPointer=e.pointerId;lookX=e.clientX;lookY=e.clientY;renderer.domElement.setPointerCapture(e.pointerId);}});renderer.domElement.addEventListener('pointermove',e=>{if(mobile&&e.pointerId===lookPointer){yaw-=(e.clientX-lookX)*.006;pitch=THREE.MathUtils.clamp(pitch+(e.clientY-lookY)*.005,-.6,1.1);lookX=e.clientX;lookY=e.clientY;}});renderer.domElement.addEventListener('pointerup',e=>{if(e.pointerId===lookPointer)lookPointer=null;});
-function collide(x,z){const radius=.34;for(const b of solid){if(x+radius>b.x-b.w/2&&x-radius<b.x+b.w/2&&z+radius>b.z-b.d/2&&z-radius<b.z+b.d/2)return true;}return false;}
+function collide(x,z,y=0){const radius=.31;for(const b of solid){if(y+1>b.y0&&y<b.y1&&x+radius>b.x-b.w/2&&x-radius<b.x+b.w/2&&z+radius>b.z-b.d/2&&z-radius<b.z+b.d/2)return true;}return false;}function floorHeight(x,z){let h=0;for(const st of stairs)if(Math.abs(x-st.x)<st.w/2&&Math.abs(z-st.z)<st.d/2+.2)h=Math.max(h,st.h);if(Math.abs(x)>11.7&&Math.abs(x)<23.5&&z>0&&z<34)h=Math.max(h,3.4);if(Math.abs(z-.4)<1.05&&Math.abs(x)<11.6)h=Math.max(h,3.4);if(Math.abs(z-33.8)<1.05&&Math.abs(x)<11.6)h=Math.max(h,3.4);return h;}
 function loop(t){requestAnimationFrame(loop);const dt=Math.min((t-last)/1000,.05);last=t;const self=players.get(me);
  if(self&&active){const down=Date.now()<self.downUntil;const mx=(keys.KeyD?1:0)-(keys.KeyA?1:0)+stick.x,mz=(keys.KeyW?1:0)-(keys.KeyS?1:0)-stick.y;const length=Math.hypot(mx,mz);const speed=keys.ShiftLeft?7.4:4.5;const sx=length?mx/Math.max(1,length):0,sz=length?mz/Math.max(1,length):0;
  const dx=(Math.cos(yaw)*sx-Math.sin(yaw)*sz)*speed*dt,dz=(-Math.sin(yaw)*sx-Math.cos(yaw)*sz)*speed*dt;
- if(!down){if(!collide(self.root.position.x+dx,self.root.position.z))self.root.position.x+=dx;if(!collide(self.root.position.x,self.root.position.z+dz))self.root.position.z+=dz;}
- if(keys.Space&&self.root.position.y<.015&&!down)velY=6.2;velY-=17*dt;self.root.position.y=Math.max(0,self.root.position.y+velY*dt);if(self.root.position.y===0)velY=0;
+ if(!down){if(!collide(self.root.position.x+dx,self.root.position.z,self.root.position.y))self.root.position.x+=dx;if(!collide(self.root.position.x,self.root.position.z+dz,self.root.position.y))self.root.position.z+=dz;}
+ const ground=floorHeight(self.root.position.x,self.root.position.z);if(keys.Space&&self.root.position.y<=ground+.06&&!down)velY=6.2;velY-=17*dt;self.root.position.y=Math.max(ground,self.root.position.y+velY*dt);if(self.root.position.y===ground)velY=0;
  self.root.rotation.y=yaw+Math.PI;self.walk+=dt*(length>0.1?10:0);const swing=length>.1?Math.sin(self.walk)*.55:0;self.legs[0].rotation.x=swing;self.legs[1].rotation.x=-swing;self.arms[0].rotation.x=-swing*.6;self.arms[1].rotation.x=THREE.MathUtils.lerp(self.arms[1].rotation.x,swing*.6,Math.min(1,dt*10));self.root.rotation.z=down?Math.PI*.44:0;
- const target=new THREE.Vector3(self.root.position.x+Math.sin(yaw)*5*Math.cos(pitch),self.root.position.y+2.7+Math.sin(pitch)*5,self.root.position.z+Math.cos(yaw)*5*Math.cos(pitch));camera.position.lerp(target,Math.min(1,dt*12));camera.lookAt(self.root.position.x,self.root.position.y+1.3,self.root.position.z);
+ const target=new THREE.Vector3(self.root.position.x+Math.sin(yaw)*5*Math.cos(pitch),self.root.position.y+2.7+Math.sin(pitch)*5,self.root.position.z+Math.cos(yaw)*5*Math.cos(pitch));const focus=new THREE.Vector3(self.root.position.x,self.root.position.y+1.35,self.root.position.z);const rayDirection=target.clone().sub(focus);const dist=rayDirection.length();rayDirection.normalize();let safe=dist;for(const b of solid){const min=new THREE.Vector3(b.x-b.w/2,b.y0,b.z-b.d/2),max=new THREE.Vector3(b.x+b.w/2,b.y1,b.z+b.d/2);const r=new THREE.Ray(focus,rayDirection),hit=r.intersectBox(new THREE.Box3(min,max),new THREE.Vector3());if(hit)safe=Math.min(safe,Math.max(.9,hit.distanceTo(focus)-.25));}const camTarget=focus.clone().addScaledVector(rayDirection,safe);camera.position.lerp(camTarget,Math.min(1,dt*15));camera.lookAt(focus);
  if(t-lastSend>60){socket.emit('move',{x:self.root.position.x,y:self.root.position.y,z:self.root.position.z,rot:yaw});lastSend=t;}
  }
  for(const [id,p] of players){if(id!==me){p.root.position.lerp(new THREE.Vector3(p.target.x,p.target.y,p.target.z),Math.min(1,dt*12));p.root.rotation.y=p.target.rot+Math.PI;p.root.rotation.z=Date.now()<p.downUntil?Math.PI*.44:0;}p.arms[1].rotation.x=THREE.MathUtils.lerp(p.arms[1].rotation.x,0,Math.min(1,dt*5));}
- if(!self){camera.position.set(0,11,25);camera.lookAt(0,0,0);}renderer.render(scene,camera);
+ if(!self){camera.position.set(0,12,26);camera.lookAt(0,2,10);}renderer.render(scene,camera);
 }requestAnimationFrame(loop);addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 </script></body></html>
